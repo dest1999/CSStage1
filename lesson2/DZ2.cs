@@ -94,12 +94,26 @@ namespace lesson2
             */
             #endregion
 
-            Office office1, office2;
-            office1.workDays = WeekDays.вт | WeekDays.ср | WeekDays.чт | WeekDays.пт; // этот офис работает вт-пт
-            office2.workDays = (WeekDays)0b_1110111;  // этот офис работает пн-вс
+            #region Offices
+            //Office office1, office2;
+            //office1.workDays = WeekDays.вт | WeekDays.ср | WeekDays.чт | WeekDays.пт; // этот офис работает вт-пт
+            //office2.workDays = (WeekDays)0b_1110111;  // этот офис работает пн-вс
 
-            Console.WriteLine("График работы офиса № 1: " + office1.workDays);
-            Console.WriteLine("График работы офиса № 2: " + office2.workDays);
+            //Console.WriteLine("График работы офиса № 1: " + office1.workDays);
+            //Console.WriteLine("График работы офиса № 2: " + office2.workDays);
+            #endregion
+
+            Console.Write("Введите год для определения: ");
+            int year = int.Parse(Console.ReadLine());
+            if((year % 4 == 0) && (year % 100 !=0 || year % 400 == 0))
+            {
+                Console.WriteLine("Это високосный год");
+            }
+            else
+            {
+                Console.WriteLine("Это не високосный год");
+            }
+            
 
 
 
