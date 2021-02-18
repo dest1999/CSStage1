@@ -14,15 +14,15 @@ namespace lesson3
                 userInput = Console.ReadLine().ToLower();
                 switch (userInput)
                 {
-                    case "1":   //TODO вывести диагональ двумерного массива
-                        {
+                    case "1":
+                        {//TODO вывести диагональ двумерного массива
                             Console.Clear();
-                            uint arrayLength;
+                            uint arrayDim;
                             do
                             {
-                                Console.Write("Введите размер квадратного массива: ");
-                            } while (!uint.TryParse(Console.ReadLine(), out arrayLength));
-                            int[,] array = new int[arrayLength, arrayLength];
+                                Console.Write("Введите размер n для массива [n*n]: ");
+                            } while (!uint.TryParse(Console.ReadLine(), out arrayDim));
+                            int[,] array = new int[arrayDim, arrayDim];
                             //в этом цикле заполняем массив случайными значениями
                             for (int i = 0; i < array.GetLength(0); i++)
                             {
@@ -56,18 +56,29 @@ namespace lesson3
                             Console.WriteLine();
                         }
                         break;
-                    case "2":   //TODO Телефонный справочник: массив 5х2
-                        {
+                    case "2":
+                        {//TODO Телефонный справочник: массив 5х2
+                            Console.Clear();
+
+                            string[,] userList = {
+                                {"Alice", "Bob", "Chuck", "Don", "Eva" },
+                                {"651981", "6489", "8495", "4577", "3216849" } };
+
+                            Console.WriteLine("Имя\t\tКонтакт\n");
+                            for (int i = 0; i < userList.GetLength(1); i++)
+                            {
+                                Console.WriteLine($"{userList[0, i]}\t\t{userList[1, i]}");
+                            }
+                            Console.WriteLine();
+                        }
+                        break;
+                    case "3":
+                        {//TODO Написать программу, выводящую введённую пользователем строку в обратном порядке
                             Console.WriteLine($"Задание {userInput}");
                         }
                         break;
-                    case "3":   //TODO Написать программу, выводящую введённую пользователем строку в обратном порядке
-                        {
-                            Console.WriteLine($"Задание {userInput}");
-                        }
-                        break;
-                    case "4":   //TODO *«Морской бой»: вывести на экран массив 10х10, состоящий из символов X и O, где Х — элементы кораблей, а О — свободные клетки
-                        {
+                    case "4":
+                        {//TODO *«Морской бой»: вывести на экран массив 10х10, состоящий из символов X и O, где Х — элементы кораблей, а О — свободные клетки
                             Console.WriteLine($"Задание {userInput}");
                         }
                         break;
