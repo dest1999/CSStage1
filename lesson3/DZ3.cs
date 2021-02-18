@@ -74,7 +74,16 @@ namespace lesson3
                         break;
                     case "3":
                         {//TODO Написать программу, выводящую введённую пользователем строку в обратном порядке
-                            Console.WriteLine($"Задание {userInput}");
+                            Console.Clear();
+
+                            Console.WriteLine("Введите строку:");
+                            string userString = Console.ReadLine();
+                            Console.WriteLine("Перевернутая строка:");
+                            for (int i = userString.Length; i > 0 ; i--)
+                            {
+                                Console.Write(userString[i-1]);
+                            }
+                            Console.WriteLine();
                         }
                         break;
                     case "4":
