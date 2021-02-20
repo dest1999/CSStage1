@@ -10,18 +10,18 @@ namespace lesson3
             string userInput;
             do
             {
-                Console.WriteLine("Выберите пункт домашнего задания (цифры 1-4, q-для выхода)");
+                Console.WriteLine("Выберите пункт домашнего задания (цифры 1-5, q-для выхода)");
                 userInput = Console.ReadLine().ToLower();
                 switch (userInput)
                 {
                     case "1":
-                        {//TODO вывести диагональ двумерного массива
+                        {// вывести диагональ двумерного массива
                             Console.Clear();
                             uint arrayDim;
                             do
                             {
                                 Console.Write("Введите размер n для массива [n*n]: ");
-                            } while (!uint.TryParse(Console.ReadLine(), out arrayDim));
+                            } while (!uint.TryParse(Console.ReadLine(), out arrayDim) || arrayDim == 0);
                             int[,] array = new int[arrayDim, arrayDim];
                             //в этом цикле заполняем массив случайными значениями
                             for (int i = 0; i < array.GetLength(0); i++)
@@ -57,7 +57,7 @@ namespace lesson3
                         }
                         break;
                     case "2":
-                        {//TODO Телефонный справочник: массив 5х2
+                        {// Телефонный справочник: массив 5х2
                             Console.Clear();
 
                             string[,] userList = {
@@ -73,7 +73,7 @@ namespace lesson3
                         }
                         break;
                     case "3":
-                        {//TODO Написать программу, выводящую введённую пользователем строку в обратном порядке
+                        {// Написать программу, выводящую введённую пользователем строку в обратном порядке
                             Console.Clear();
 
                             Console.WriteLine("Введите строку:");
@@ -87,6 +87,63 @@ namespace lesson3
                         }
                         break;
                     case "4":
+                        {//TODO Смещение элементов одномерного массива на заданное количество позиций
+                            Console.Clear();
+                            uint arraySize;
+                            do
+                            {
+                                Console.Write($"Введите количество элементов массива: ");
+                            } while (!uint.TryParse(Console.ReadLine(), out arraySize) || arraySize == 0 );
+                            int[] arr = new int[arraySize];
+                            Console.WriteLine("Массив заполнен случайными значениями:");
+                            for (int i = 0; i < arr.Length; i++)
+                            {
+                                arr[i] = rnd.Next(10, 100);
+                                Console.Write(arr[i] + " ");
+                            }
+                            int offset, tmp;
+                            do
+                            {
+                                Console.Write("\nВведите сдвиг: ");
+                            } while (!int.TryParse(Console.ReadLine(), out offset));
+                            offset %= arr.Length; // противодействие лишним вычислениям если пользователь ввёл сдвиг больше длины массива
+
+                            #region Сдвигаем циклически
+                            if (offset > 0) // 0 не рассматриваем, т.к. ничего никуда не перемещается
+                            {//выполняем если сдвиг положительный
+                                for (int i = 0; i < offset; i++)
+                                {
+                                    tmp = arr[arr.Length - 1];
+                                    for (int j = arr.Length - 2; j >= 0 ; j--)
+                                    {
+                                        arr[j + 1] = arr[j];
+                                    }
+                                    arr[0] = tmp;
+                                }
+                            }
+                            if (offset < 0)
+                            {//выполняем если сдвиг отрицательный
+                                for (int i = 0; i > offset; i--)
+                                {
+                                    tmp = arr[0];
+                                    for (int j = 0; j < arr.Length - 1; j++)
+                                    {
+                                        arr[j] = arr[j + 1];
+                                    }
+                                    arr[arr.Length - 1] = tmp;
+                                }
+                            }
+                            #endregion
+
+                            Console.WriteLine("Результат:");
+                            for (int i = 0; i < arr.Length; i++)
+                            {
+                                Console.Write(arr[i] + " ");
+                            }
+                            Console.WriteLine();
+                        }
+                        break;
+                    case "5":
                         {//TODO *«Морской бой»: вывести на экран массив 10х10, состоящий из символов X и O, где Х — элементы кораблей, а О — свободные клетки
                             Console.WriteLine($"Задание {userInput}");
                         }
