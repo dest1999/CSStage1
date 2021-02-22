@@ -10,7 +10,7 @@ namespace lesson3
             string userInput;
             do
             {
-                Console.WriteLine("Выберите пункт домашнего задания (цифры 1-5, q-для выхода)");
+                Console.WriteLine("Выберите пункт домашнего задания (цифры 1-5, exit или q-для выхода)");
                 userInput = Console.ReadLine().ToLower();
                 switch (userInput)
                 {
@@ -181,7 +181,10 @@ namespace lesson3
                         break;
                     case "q":
                     case "Q":
-                        return;
+                        {
+                            userInput = "exit";
+                        }
+                        break;
 
                     default:
                         {
@@ -189,7 +192,7 @@ namespace lesson3
                         }
                         break;
                 }
-            } while (true);
+            } while (userInput != "exit");
         }
     }
 }
