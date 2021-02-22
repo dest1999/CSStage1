@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;   
 
 namespace lesson3
 {
@@ -87,7 +87,7 @@ namespace lesson3
                         }
                         break;
                     case "4":
-                        {//TODO Смещение элементов одномерного массива на заданное количество позиций
+                        {//Смещение элементов одномерного массива на заданное количество позиций
                             Console.Clear();
                             uint arraySize;
                             do
@@ -145,12 +145,43 @@ namespace lesson3
                         break;
                     case "5":
                         {//TODO *«Морской бой»: вывести на экран массив 10х10, состоящий из символов X и O, где Х — элементы кораблей, а О — свободные клетки
-                            Console.WriteLine($"Задание {userInput}");
+                            Console.Clear();
+                            char[,] sea = {
+                                {'X', 'O', 'O', 'X', 'O', 'O', 'O', 'O', 'O', 'O' },
+                                {'X', 'O', 'O', 'X', 'O', 'O', 'O', 'O', 'X', 'O' },
+                                {'O', 'O', 'O', 'X', 'O', 'O', 'O', 'O', 'O', 'O' },
+                                {'O', 'X', 'O', 'O', 'O', 'O', 'X', 'O', 'O', 'O' },
+                                {'O', 'X', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O' },
+                                {'O', 'X', 'O', 'X', 'X', 'O', 'O', 'O', 'O', 'O' },
+                                {'O', 'X', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O' },
+                                {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'X', 'O', 'O' },
+                                {'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O' },
+                                {'X', 'X', 'X', 'O', 'X', 'X', 'O', 'O', 'O', 'X' },};
+                            
+                            for (int i = 0; i < sea.GetLength(0); i++) //показали итоговый массив
+                            {
+                                for (int j = 0; j < sea.GetLength(1); j++)
+                                {
+                                    if (sea[i, j] == 'O' )
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Blue;
+                                    }
+                                    if (sea[i,j] == 'X' )
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Green;
+                                    }
+                                    Console.Write(" " + sea[i, j]);
+                                }
+                                Console.WriteLine();
+                            }
+
+                            Console.ResetColor();
+
                         }
                         break;
                     case "q":
+                    case "Q":
                         return;
-
 
                     default:
                         {
@@ -158,17 +189,7 @@ namespace lesson3
                         }
                         break;
                 }
-
-
-
-
-
-
             } while (true);
-
-
-
-
         }
     }
 }
