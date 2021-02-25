@@ -7,9 +7,21 @@ namespace lesson3
 
         static void Main(string[] args)
         {
-            string GetFullName(string firstName, string lastName, string patronymic)
+            string GetFullName(string firstName, string lastName, string patronymic) // метод к заданию 1
             {
                 return $"{lastName} {firstName} {patronymic}";
+            }
+
+            int Sum(string str) //метод к заданию 2
+            {
+                string[] strArray = str.Split(' ');
+                int res = 0;
+                foreach (var item in strArray)
+                {
+                    int.TryParse(item, out int tmp);
+                    res += tmp;
+                }
+                return res;
             }
 
             string userInput;
@@ -39,7 +51,8 @@ namespace lesson3
                     case "2":
                         {// TODO Написать программу, принимающую на вход строку — набор чисел, разделенных пробелом, и возвращающую число — сумму всех чисел в строке. Ввести данные с клавиатуры и вывести результат на экран.
                             Console.Clear();
-
+                            Console.WriteLine("Введите последовательность чисел для сложения, разделитель - пробел: ");
+                            Console.WriteLine(Sum(Console.ReadLine()));
                         }
                         break;
                     case "3":
