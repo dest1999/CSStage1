@@ -76,7 +76,8 @@ namespace lesson5
                     case "2":
                         {// TODO Написать программу, которая при старте дописывает текущее время в файл «startup.txt»
                             Console.Clear();
-
+                            string fileName = "startup.txt";
+                            File.AppendAllText(fileName, DateTime.Now.ToLongTimeString() + "\n");
                         }
                         break;
                     case "3":
