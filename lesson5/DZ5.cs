@@ -10,8 +10,8 @@ namespace lesson5
             string userInput;
             do
             {
-                Console.WriteLine("Выберите пункт домашнего задания (цифры 1-4, что угодно другое-для выхода)");
-                userInput = Console.ReadLine().ToLower();
+                Console.WriteLine("Выберите пункт домашнего задания (цифры 1-3, что угодно другое-для выхода)");
+                userInput = Console.ReadLine();
                 switch (userInput)
                 {
                     case "1":
@@ -55,9 +55,8 @@ namespace lesson5
                                 {
                                     break;
                                 }
-                                Array.Resize(ref strFromUserArr, strCounter + 1);
-                                strFromUserArr[strCounter] = strFromUser;
-                                strCounter++;
+                                Array.Resize(ref strFromUserArr, ++strCounter);
+                                strFromUserArr[strCounter - 1] = strFromUser;
                             }
 
                             if (strFromUserArr.Length != 0) // проверка есть ли что для записи в файл
@@ -83,16 +82,25 @@ namespace lesson5
                     case "3":
                         {// TODO Ввести с клавиатуры произвольный набор чисел (0...255) и записать их в бинарный файл
                             Console.Clear();
+                            Console.WriteLine("Введите последовательность чисел 0..255\nРазделитель между числами - пробел, завершение - Enter");
+                            byte userNumber;
+                            int counter = 0;
+                            byte[] userNumbersArr = new byte[0];
+                            string str = Console.ReadLine();
+                            string[] strArr = str.Split(' ');
 
+                            foreach (var item in strArr)
+                            {//заполняем массив байтами, отсеиваем некорректные данные из ввода пользователя
+                                if (byte.TryParse(item, out userNumber))
+                                {
+                                    Array.Resize(ref userNumbersArr, ++counter);
+                                    userNumbersArr[counter - 1] = userNumber;
+                                }
+                            }
+                            File.WriteAllBytes("userdata.dat", userNumbersArr);
                         }
                         break;
-                    case "4":
-                        {// TODO (*)
-                            Console.Clear();
 
-
-                        }
-                        break;
 
                     default:
                         {
