@@ -20,11 +20,68 @@ namespace lesson6
             //ToDoMainCycle(ref toDoArray);
             //ToDoSaveToFile(fileStoreTasks, ref toDoArray);
             #endregion
+            #region task3
 
+            string[,] goodArr = new string[,]
+            {
+                { "1", "1", "1", "1", },
+                { "1", "1", "1", "1", },
+                { "1", "2", "1", "1", },
+                { "0", "1", "1", "1", }
+            };
+
+            string[,] badArr = new string[,]
+            {
+                { "1", "1", "1", "1", },
+                { "1", "1", "1", "1", },
+                { "1", "1", "1", "1", }
+            };
+            try
+            {
+                Console.WriteLine(GetArray(goodArr));
+            }
+            catch (MyArraySizeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (MyArrayDataException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            #endregion
             #region task4
-            MainMethodTask4();
+            //MainMethodTask4();
             #endregion
         }
+
+        private static int GetArray(string [,] arr)
+        {
+            int sum = 0;
+            if (arr.GetLength(0) !=4 || arr.GetLength(1) !=4)
+            {
+                throw new MyArraySizeException();
+            }
+
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (int.TryParse(arr[i, j], out int elArr))
+                    {
+                        sum += elArr;
+                    }
+                    else
+                    {
+                        throw new MyArrayDataException(i + 1, j + 1);
+                    }
+
+                }
+            }
+            return sum;
+        }
+
+
 
         private static void MainMethodTask4() //task4 method
         {
@@ -106,7 +163,7 @@ namespace lesson6
             Console.SetCursorPosition(0, tmpCursorPosition);
             Console.WriteLine("Введите номер задачи для её закрытия, (А) для создания новой задачи, (Q) для сохранения и выхода");
         }
-        private static void ToDoInitCheckFile(string file, ref ToDo[] toDos) //task2 method: Проверка наличия файла
+        private static void ToDoInitCheckFile(string file, ref ToDo[] toDoArray) //task2 method: Проверка наличия файла
         {
             if (File.Exists(file))
             {
@@ -115,7 +172,7 @@ namespace lesson6
                 {
                     try
                     {
-                        toDos = JsonSerializer.Deserialize<ToDo[]>(stringStoreTasks);
+                        toDoArray = JsonSerializer.Deserialize<ToDo[]>(stringStoreTasks);
                     }
                     catch
                     {
