@@ -14,16 +14,42 @@ namespace lesson6
             //SaveFilesAndDirsListToFile(Console.ReadLine()); // Вызов метода задание 1 (без рекурсии)
             #endregion
             #region task2
-            string fileStoreTasks = "tasks.json";
-            ToDo[] toDoArray = new ToDo[0];
-            ToDoInitCheckFile(fileStoreTasks, ref toDoArray);
-            ToDoMainCycle(ref toDoArray);
-            ToDoSaveToFile(fileStoreTasks, ref toDoArray);
+            //string fileStoreTasks = "tasks.json";
+            //ToDo[] toDoArray = new ToDo[0];
+            //ToDoInitCheckFile(fileStoreTasks, ref toDoArray);
+            //ToDoMainCycle(ref toDoArray);
+            //ToDoSaveToFile(fileStoreTasks, ref toDoArray);
             #endregion
 
-
+            #region task4
+            MainMethodTask4();
+            #endregion
         }
 
+        private static void MainMethodTask4() //task4 method
+        {
+            Person[] persArray = new Person[0];
+
+            try
+            {
+                AddNewItemIntoArray(ref persArray, new Person("Иван", "директор", "ceo@corp.ru", "84117534281", int.MaxValue, 45));
+                AddNewItemIntoArray(ref persArray, new Person("Юленька", "секретарь", "youl@corp.ru", "84117534281", int.MaxValue / 3, 19));
+                AddNewItemIntoArray(ref persArray, new Person("Борис Филиппович", "главный инженер", "gl_inzh@corp.ru", "84117534281", 40000, 50));
+                AddNewItemIntoArray(ref persArray, new Person("Андрюха", "старший специалист выездной бригады", "st_mob@corp.ru", "84117534281", 30000, 35));
+                AddNewItemIntoArray(ref persArray, new Person("Петрович", "разнорабочий", "-", "84117534281", 12000, 55));// эта строка вызовет исключение в конструкторе
+            }
+            catch (PersonCreateExeption e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            Console.WriteLine("Выборка тех, кому за 40");
+            foreach (var item in persArray)
+            {
+                if (item.Age > 40)
+                    item.Show();
+            }
+        }
         private static void ToDoMainCycle(ref ToDo[] toDoArray) //task2 method: Главный цикл
         {//Введите номер задачи для закрытия, (А) для создания новой задачи, (Q) для сохранения и выхода
             string userChoice;
