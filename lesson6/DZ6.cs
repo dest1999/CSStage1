@@ -10,78 +10,18 @@ namespace lesson6
         static void Main(string[] args)
         {
             #region task1
-            //Console.Write("Введите путь: ");
-            //SaveFilesAndDirsListToFile(Console.ReadLine()); // Вызов метода задание 1 (без рекурсии)
+            //MainMethodTask1();
             #endregion
             #region task2
-            //string fileStoreTasks = "tasks.json";
-            //ToDo[] toDoArray = new ToDo[0];
-            //ToDoInitCheckFile(fileStoreTasks, ref toDoArray);
-            //ToDoMainCycle(ref toDoArray);
-            //ToDoSaveToFile(fileStoreTasks, ref toDoArray);
+            //MainMethodTask2();
             #endregion
             #region task3
-
-            string[,] goodArr = new string[,]
-            {
-                { "1", "1", "1", "1", },
-                { "1", "1", "1", "1", },
-                { "1", "2", "1", "1", },
-                { "0", "1", "1", "1", }
-            };
-
-            string[,] badArr = new string[,]
-            {
-                { "1", "1", "1", "1", },
-                { "1", "1", "1", "1", },
-                { "1", "1", "1", "1", }
-            };
-            try
-            {
-                Console.WriteLine(GetArray(goodArr));
-            }
-            catch (MyArraySizeException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch (MyArrayDataException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
+            //MainMethodTask3();
             #endregion
             #region task4
             //MainMethodTask4();
             #endregion
         }
-
-        private static int GetArray(string [,] arr)
-        {
-            int sum = 0;
-            if (arr.GetLength(0) !=4 || arr.GetLength(1) !=4)
-            {
-                throw new MyArraySizeException();
-            }
-
-            for (int i = 0; i < arr.GetLength(0); i++)
-            {
-                for (int j = 0; j < arr.GetLength(1); j++)
-                {
-                    if (int.TryParse(arr[i, j], out int elArr))
-                    {
-                        sum += elArr;
-                    }
-                    else
-                    {
-                        throw new MyArrayDataException(i + 1, j + 1);
-                    }
-
-                }
-            }
-            return sum;
-        }
-
-
 
         private static void MainMethodTask4() //task4 method
         {
@@ -106,6 +46,78 @@ namespace lesson6
                 if (item.Age > 40)
                     item.Show();
             }
+        }
+        private static void MainMethodTask3()
+        {
+            string[,] goodArr = new string[,]
+            {
+                { "1", "1", "1", "1", },
+                { "1", "1", "1", "1", },
+                { "1", "XX", "1", "1", },
+                { "0", "1", "1", "1", }
+            };
+
+            string[,] badArr = new string[,]
+            {
+                { "1", "1", "1", "1", },
+                { "1", "1", "1", "1", },
+                { "1", "1", "1", "1", }
+            };
+            try
+            {
+                Console.WriteLine(GetArray(badArr));
+            }
+            catch (MyArraySizeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (MyArrayDataException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        private static void MainMethodTask2()
+        {
+            string fileStoreTasks = "tasks.json";
+            ToDo[] toDoArray = new ToDo[0];
+            ToDoInitCheckFile(fileStoreTasks, ref toDoArray);
+            ToDoMainCycle(ref toDoArray);
+            ToDoSaveToFile(fileStoreTasks, ref toDoArray);
+        }
+        private static void MainMethodTask1()
+        {
+            Console.Write("Введите путь: ");
+            string filesDirsTree = "FilesAndDirs.txt", filesDirsTreeRec = "FilesAndDirsRec.txt";
+            string userPath = Console.ReadLine();
+            File.Delete(filesDirsTree);
+            File.Delete(filesDirsTreeRec);
+            SaveFilesAndDirsListToFile(userPath, filesDirsTree); // Вызов метода задание 1 (без рекурсии)
+            RunDirectoryRecursively(userPath, filesDirsTreeRec);
+        }
+        private static int GetArray(string [,] arr)  //task3 method
+        {
+            int sum = 0;
+            if (arr.GetLength(0) !=4 || arr.GetLength(1) !=4)
+            {
+                throw new MyArraySizeException();
+            }
+
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                {
+                    if (int.TryParse(arr[i, j], out int elArr))
+                    {
+                        sum += elArr;
+                    }
+                    else
+                    {
+                        throw new MyArrayDataException(i + 1, j + 1);
+                    }
+
+                }
+            }
+            return sum;
         }
         private static void ToDoMainCycle(ref ToDo[] toDoArray) //task2 method: Главный цикл
         {//Введите номер задачи для закрытия, (А) для создания новой задачи, (Q) для сохранения и выхода
@@ -196,11 +208,9 @@ namespace lesson6
                 File.WriteAllText(fileStoreTasks, json);
             }
         }
-        private static void SaveFilesAndDirsListToFile(string path) //task1 method
+        private static void SaveFilesAndDirsListToFile(string path, string fileToSave) //task1 method без рекурсии
         {
-            string fileToSave = "FilesAndDirs.txt";
             string[] filesAndDirsArray = new string[0];
-
             try
             {
                 foreach (var item in Directory.EnumerateFileSystemEntries(path, "*", SearchOption.AllDirectories))
@@ -222,7 +232,6 @@ namespace lesson6
                 File.WriteAllLines(fileToSave, filesAndDirsArray);
                 Console.WriteLine("Сгенерированный список файлов и каталогов по указанному пути сохранен в файл");
             }
-
             Console.ReadKey();
         }
         private static void AddNewItemIntoArray<T>(ref T[] arr, T newItem) //Common method: добавляем элемент в массив, немного обобщений для переиспользования кода
@@ -230,5 +239,20 @@ namespace lesson6
             Array.Resize(ref arr, arr.Length + 1);
             arr[arr.Length - 1] = newItem;
         }
+        private static void RunDirectoryRecursively(string path, string fileToWrite, int padding = 0)  //task1 method с рекурсией
+        {
+            foreach (var fileItem in Directory.GetFiles(path))
+            {
+                File.AppendAllText(fileToWrite, fileItem + "\n");
+            }
+
+            foreach (var dirItem in Directory.GetDirectories(path))
+            {
+                File.AppendAllText(fileToWrite, dirItem + "\n");
+                RunDirectoryRecursively(dirItem, fileToWrite, padding + 1);
+            }
+
+        }
+
     }
 }
