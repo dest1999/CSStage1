@@ -251,7 +251,6 @@ namespace lesson6
                 File.AppendAllText(fileToWrite, dirItem + "\n");
                 RunDirectoryRecursively(dirItem, fileToWrite, padding + 1);
             }
-
         }
 
     }
