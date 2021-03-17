@@ -23,7 +23,7 @@ namespace lesson8
                 Console.WriteLine("ID процесса");
                 foreach (var item in processes)
                 {
-                    Console.Write(item.ProcessName);
+                    Console.Write(" " + item.ProcessName);
                     Console.SetCursorPosition(40, Console.CursorTop);
                     Console.WriteLine(item.Id);
                 }
