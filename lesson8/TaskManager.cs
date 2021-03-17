@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using ClassLibrary;
+
 // TODO Написать консольное приложение Task Manager, которое выводит на экран запущенные процессы и позволяет завершить указанный процесс.
 //      Предусмотреть возможность завершения процессов с помощью указания его ID или имени процесса.
 //      В качестве примера можно использовать консольные утилиты Windows tasklist и taskkill
@@ -32,7 +34,7 @@ namespace lesson8
                 {
                     Process.GetProcessById(processID).Kill();
                  
-                    while (isProcessExist(processID)) ;
+                    while (ServiceClass.isProcessExist(processID)) ;
                 }
                 else
                 {
@@ -40,35 +42,9 @@ namespace lesson8
                     {
                         item.Kill();
                     }
-                    while (isProcessExist(processNameOrID)) ;
+                    while (ServiceClass.isProcessExist(processNameOrID)) ;
                 }
             }
         }
-
-        private static bool isProcessExist(int processID)
-        {
-            foreach (var item in Process.GetProcesses())
-            {
-                if (item.Id == processID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static bool isProcessExist(string processName)
-        {
-            foreach (var item in Process.GetProcesses())
-            {
-                if (item.ProcessName == processName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
     }
 }
