@@ -15,8 +15,10 @@ namespace lesson8
         static void Main(string[] args)
         {
             string processNameOrID;
+            bool isKillProcessFail = false;
             while (true)
             {
+                Console.Clear();
                 Process[] processes = Process.GetProcesses();
                 Console.Write("\tИмя процесса");
                 Console.SetCursorPosition(40, Console.CursorTop);
@@ -32,17 +34,34 @@ namespace lesson8
                 processNameOrID = Console.ReadLine();
                 if (int.TryParse(processNameOrID, out int processID))
                 {
-                    Process.GetProcessById(processID).Kill();
+                    try
+                    {
+                        Process.GetProcessById(processID).Kill();
+                        while (ServiceClass.isProcessExist(processID)) ;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Невозможно завершить указанный процесс");
+                        Console.ReadKey();
+                    }
                  
-                    while (ServiceClass.isProcessExist(processID)) ;
                 }
                 else
                 {
                     foreach (var item in Process.GetProcessesByName(processNameOrID))
                     {
-                        item.Kill();
+                        try
+                        {
+                            item.Kill();
+                        }
+                        catch (Exception)
+                        {
+                            isKillProcessFail = true;
+                            Console.WriteLine("Невозможно завершить указанный процесс");
+                            Console.ReadKey();
+                        }
                     }
-                    while (ServiceClass.isProcessExist(processNameOrID)) ;
+                    while (ServiceClass.isProcessExist(processNameOrID) && !isKillProcessFail ) ;
                 }
             }
         }
