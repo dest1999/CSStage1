@@ -10,7 +10,7 @@ namespace lesson6
         static void Main(string[] args)
         {
             #region task1
-            //MainMethodTask1();
+            MainMethodTask1();
             #endregion
             #region task2
             //MainMethodTask2();
